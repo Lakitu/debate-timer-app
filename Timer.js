@@ -1,49 +1,60 @@
 // Use React CS50 lecture to make timer
 import {Text, StyleSheet} from 'react-native'
-import Constants from 'expo'
+import React from 'react'
 
-class Timer extends React.Component{
+export class Timer extends React.Component{
     constructor(props) {
         super(props);
-        this.props.style = StyleSheet.create({
-            container: {
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-            },
-            count: {
-                fontSize: 48,
-            },
-        })
         this.state = {
+            style: StyleSheet.create({
+                container: {
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                },
+                count: {
+                    fontSize: 100,
+                    fontFamily: "Impact, sansSerif",
+                },
+            }),
             timerLength: 0,
             startTime: 0,
             endTime: 0,
-            displayTime: 0,
+            displayTime: this.timeToDisplay(this.props.time*60*1000),
 
         }
     }
 
-    setTimer(time) {
-        this.setState((prevState) => {
-            timerLength: prevState.timerLength = time*60*1000 // converts minutes to milliseconds
-        })
+    timeToDisplay(millis) {
+        let actualSeconds = millis/1000
+        let minutes = Math.floor(actualSeconds/60)
+        let seconds = Math.floor(actualSeconds % 60)
+        let displaySeconds = ("0" + (String)(seconds)).slice(-2);
+        let tenths = Math.floor((millis/100)%10);
+        let output = minutes+":"+displaySeconds+"."+tenths;
+        return(output);
     }
 
     componentDidMount() {
-        this.state.startTime = Date.now();
-        this.state.endTime = Date.now() + this.state.timerLength;
-        this.state.displayTime = (this.state.endTime-Date.now())/1000.
-        setInterval(() => {
-            this.setState((prevState) => {
-                this.state.displayTime: (prevState.displayTime = (this.state.endTime-Date.now())/1000.)
-            })
-        }, 1000);
+        this.setState(() => {
+            this.state.timerLength = this.props.time*60*1000;
+        }, () => {
+            this.state.startTime = Date.now(); // calculates the time the timer starts
+            this.state.endTime = Date.now() + this.state.timerLength; // gets the time the timer should end
+            this.state.displayTime = this.timeToDisplay(this.state.endTime-Date.now()) // gets the time to display
+            setInterval(() => { // runs every 1000 seconds
+                this.setState(() => {
+                    this.state.displayTime = this.timeToDisplay(this.state.endTime-Date.now())
+                }, () => {
+                    // this.forceUpdate(()=>{})
+                })
+            }, 100);
+        })
     }
 
     render() {
         return(
-            <Text StyleSheet={this.props.style.count}></Text>
+            <Text StyleSheet={this.state.style.count}>{this.state.displayTime}</Text> //TODO: make this update at the correct time
         )
     }
 }
