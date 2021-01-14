@@ -1,22 +1,11 @@
 // Use React CS50 lecture to make timer
-import {Text, StyleSheet} from 'react-native'
+import {Text, View} from 'react-native'
 import React from 'react'
 
 export class Timer extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            style: StyleSheet.create({
-                container: {
-                    flex: 1,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                },
-                count: {
-                    fontSize: 100,
-                    fontFamily: "Impact, sansSerif",
-                },
-            }),
             timerLength: 0,
             startTime: 0,
             endTime: 0,
@@ -39,13 +28,15 @@ export class Timer extends React.Component{
         this.setState(() => {
             this.state.timerLength = this.props.time*60*1000;
         }, () => {
-            this.state.startTime = Date.now(); // calculates the time the timer starts
-            this.state.endTime = Date.now() + this.state.timerLength; // gets the time the timer should end
-            this.state.displayTime = this.timeToDisplay(this.state.endTime-Date.now()) // gets the time to display
+            this.setState(() => ({
+                startTime: (Date.now()),
+                endTime: Date.now() + this.state.timerLength,
+                displayTime: this.timeToDisplay(this.state.endTime-Date.now())
+            }))
             setInterval(() => { // runs every 1000 seconds
-                this.setState(() => {
-                    this.state.displayTime = this.timeToDisplay(this.state.endTime-Date.now())
-                }, () => {
+                this.setState(() => ({
+                    displayTime: this.timeToDisplay(this.state.endTime-Date.now())
+                }), () => {
                     // this.forceUpdate(()=>{})
                 })
             }, 100);
@@ -53,8 +44,11 @@ export class Timer extends React.Component{
     }
 
     render() {
+        console.log("re-rendered");
         return(
-            <Text StyleSheet={this.state.style.count}>{this.state.displayTime}</Text> //TODO: make this update at the correct time
+            <View style={this.props.styles.container}>
+                <Text StyleSheet={this.props.styles.count}>{this.state.displayTime}</Text>
+            </View>
         )
     }
 }
