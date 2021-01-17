@@ -1,24 +1,31 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { View } from 'react-native';
 import {Main} from './Main'
 import {styles, timerStyles} from './styles'
-import AppLoading from 'expo-app-loading'
-import {useFonts} from "@expo-google-fonts/inter";
 
-export default function App() {
-  let [fontsLoaded] = useFonts({
-    'RobotoMono': require('./assets/fonts/RobotoMono-VariableFont_wght.ttf'),
-  })
+class App extends Component {
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
+  constructor(props) {
+    super(props);
+
+    this.state = {
+
+    }
   }
-  return (
-    <View style={styles.container}>
-      <Main times = {times[0]} style={timerStyles}/>
-    </View>
-  );
+
+  componentDidMount() {
+  }
+
+  render() {
+    return (
+        <View style={styles.container}>
+          <Main times = {times[0]} style={timerStyles}/>
+        </View>
+        )
+  }
 }
+
+export default App;
 
 const times = [
   [ // CDA times

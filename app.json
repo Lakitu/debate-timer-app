@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "A debate timer app that has pre-set times for CDA debates",
+    "githubUrl": "https://github.com/Lakitu/debate-timer-app"
   }
 }

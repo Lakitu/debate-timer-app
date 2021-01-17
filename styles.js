@@ -10,7 +10,7 @@ export const timerStyles = StyleSheet.create({
     count: {
         fontSize: 50,
         fontWeight: 'bold',
-        fontFamily: "RobotoMono",
+        fontFamily: "RobotoMono, Monospace",
     },
     finishedRed: {
         color: 'red',
