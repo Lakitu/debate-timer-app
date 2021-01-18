@@ -2,15 +2,15 @@ import {StyleSheet} from "react-native";
 
 export const timerStyles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        marginTop: 3,
+        // justifyContent: 'flex-start',
+        // marginTop: 3,
     },
     count: {
         fontSize: 50,
         fontWeight: 'bold',
-        fontFamily: "RobotoMono, Monospace",
+        fontFamily: "RobotoMono",
     },
     finishedRed: {
         color: 'red',
@@ -23,6 +23,10 @@ export const timerStyles = StyleSheet.create({
     },
     nextSpeechButton: {
         color: "#2bc454",
+    },
+    speechName: {
+        fontSize: 40,
+        fontWeight: 'bold',
     }
 })
 

@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import { View } from 'react-native';
-import {Main} from './Main'
+import {TimerPage} from './timerPage'
 import {styles, timerStyles} from './styles'
+import {loadAsync} from "expo-font";
+
 
 class App extends Component {
 
@@ -9,17 +11,23 @@ class App extends Component {
     super(props);
 
     this.state = {
-
+      host: true,
+      room: "abcde",
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    try {
+      await loadAsync({
+        RobotoMono: require('./assets/fonts/RobotoMono-VariableFont_wght.ttf'),
+      }); // loads the font
+    } catch {} // in case the font doesn't work
   }
 
   render() {
     return (
         <View style={styles.container}>
-          <Main times = {times[0]} style={timerStyles}/>
+          <TimerPage times = {times[0]} style={timerStyles} host={this.state.host} room={this.state.room}/>
         </View>
         )
   }

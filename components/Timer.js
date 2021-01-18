@@ -33,7 +33,7 @@ export class Timer extends React.Component{
             this.setState(() => ({ // then sets the end time
                 endTime: Date.now() + this.state.timerLength,
             }), () => { // then sets the 0.1 second intervals
-                setInterval(() => { // runs every 100 milliseconds
+                this.tick = setInterval(() => { // runs every 100 milliseconds
                     this.setState(() => ({ // sets state (every tenth of a second)
                         displayTime: (this.state.endTime < Date.now() ? // sets display time (if the time is up or not)
                             "0:00.0" : this.timeToDisplay(this.state.endTime-Date.now())), // if time is up, 0:00.0, else display properly
@@ -46,11 +46,16 @@ export class Timer extends React.Component{
 
     componentDidMount() {
         this.setUp()
-        setInterval(() => { // in the callback for setting timer length (every 0.5 seconds)
+        this.flashInterval = setInterval(() => { // in the callback for setting timer length (every 0.5 seconds)
             this.setState ((prevState) => ({
                 flash: !prevState.flash, // sets the flash variable every 0.5 seconds
             }))
         }, 500);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.flashInterval);
+        clearInterval(this.tick);
     }
 
     componentDidUpdate() {
@@ -63,14 +68,13 @@ export class Timer extends React.Component{
     }
 
     render() {
-        // console.log(this.state.timerLength);
         return(
             <View style={this.props.styles.container}>
                 <Text style={[this.props.styles.count,
                     (this.state.finished ? (this.state.flash ? this.props.styles.finishedRed: this.props.styles.finishedBlack)
                         : this.props.styles.continuing),
                 ]}>
-                    {/*{(this.state.finished && this.state.flash ? '' : this.state.displayTime)}*/this.state.displayTime}
+                    {this.state.displayTime}
                 </Text>
             </View>
         )
