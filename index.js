@@ -19,14 +19,14 @@ io.sockets.on("connection", (socket) => {
   users++;
 
   socket.on("room", (room) => {
-    console.log(room);
+    // console.log(room);
     socket.join(room);
   })
 
   socket.on("next", (msg) => {
-    console.log(`NEXT: ${msg.newSpeech}, ROOM: ${msg.room}`);
-    // io.sockets.in(msg.room).emit('next', msg);
-    io.sockets.emit("next", msg)
+    // console.log(`NEXT: ${msg.newSpeech}, ROOM: ${msg.room}`);
+    io.sockets.in(msg.room).emit('next', msg);
+    // io.sockets.emit("next", msg)
   });
 
   socket.on("disconnect", () => {
