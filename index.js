@@ -18,16 +18,15 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   console.log(`user ${users} connected`);
   users++;
-  socket.on("message", (msg) => {
-    console.log(msg);
-  })
   socket.on("next", (msg) => {
-    console.log(msg);
-    io.emit("next", msg);
+    io.to(msg.room).emit(msg);
   });
 
+  socket.on("room", (room) => {
+    socket.join(room);
+  })
+
   socket.on("disconnect", () => {
-    console.log("Client has disconnected");
     users--;
   });
 });
