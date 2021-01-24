@@ -18,6 +18,9 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   console.log(`user ${users} connected`);
   users++;
+  socket.on("message", (msg) => {
+    console.log(msg);
+  })
   socket.on("next", (msg) => {
     console.log(msg);
     io.emit("next", msg);
