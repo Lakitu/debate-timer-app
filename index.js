@@ -23,9 +23,9 @@ io.sockets.on("connection", (socket) => {
   })
 
   socket.on("next", (msg) => {
-    console.log("NEXT");
-    io.sockets.in(msg.room).emit(msg);
-    // console.log(io.sockets.in(msg.room))
+    // console.log("NEXT");
+    io.sockets.in(msg.room).emit('next', msg);
+    console.log(io.sockets.in(msg.room))
   });
 
   socket.on("disconnect", () => {
