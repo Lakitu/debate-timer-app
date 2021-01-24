@@ -15,18 +15,18 @@ app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-io.on("connection", (socket) => {
-  // console.log(`user ${users} connected`);
+io.sockets.on("connection", (socket) => {
   users++;
-  socket.on("next", (msg) => {
-    io.sockets.in(msg.room).emit(msg);
-    console.log(io.sockets.in(msg.room))
-    // console.log(msg.room, socket.rooms);
-  });
 
   socket.on("room", (room) => {
     socket.join(room);
   })
+
+  socket.on("next", (msg) => {
+    console.log("NEXT");
+    io.sockets.in(msg.room).emit(msg);
+    // console.log(io.sockets.in(msg.room))
+  });
 
   socket.on("disconnect", () => {
     users--;
