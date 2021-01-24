@@ -23,8 +23,9 @@ io.sockets.on("connection", (socket) => {
   })
 
   socket.on("next", (msg) => {
-    console.log(`NEXT: ${msg.newSpeech}, ROOM: ${msg.room}`);
-    io.sockets.in(msg.room).emit('next', msg);
+    // console.log(`NEXT: ${msg.newSpeech}, ROOM: ${msg.room}`);
+    // io.sockets.in(msg.room).emit('next', msg);
+    io.sockets.emit("next", msg)
   });
 
   socket.on("disconnect", () => {
