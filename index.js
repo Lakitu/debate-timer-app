@@ -20,6 +20,7 @@ io.on("connection", (socket) => {
   users++;
   socket.on("next", (msg) => {
     io.sockets.in(msg.room).emit(msg);
+    console.log(io.sockets.in(msg.room))
     // console.log(msg.room, socket.rooms);
   });
 
