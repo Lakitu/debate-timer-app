@@ -16,10 +16,11 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log(`user ${users} connected`);
+  // console.log(`user ${users} connected`);
   users++;
   socket.on("next", (msg) => {
     io.to(msg.room).emit(msg);
+    console.log(msg.room);
   });
 
   socket.on("room", (room) => {
