@@ -19,8 +19,8 @@ io.on("connection", (socket) => {
   // console.log(`user ${users} connected`);
   users++;
   socket.on("next", (msg) => {
-    io.to(msg.room).emit(msg);
-    console.log(msg.room, socket.rooms);
+    io.sockets.in(msg.room).emit(msg);
+    // console.log(msg.room, socket.rooms);
   });
 
   socket.on("room", (room) => {
