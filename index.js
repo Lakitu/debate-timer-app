@@ -16,6 +16,9 @@ let users = 0;
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
+app.get("/favicon.ico", (req, res) => {
+  res.send("");
+})
 
 app.use(express.static(__dirname + '/pages'))
 app.get("/formats", (req, res) => {
