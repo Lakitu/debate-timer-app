@@ -10,7 +10,7 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   }
 });
-const port = 0;
+const port = 0; // works on localhost
 let users = 0;
 
 app.get("/", (req, res) => {
@@ -49,5 +49,4 @@ io.sockets.on("connection", (socket) => {
   });
 });
 
-// server.listen((process.env.PORT || port));
-server.listen(port);
+server.listen((process.env.PORT || port));
