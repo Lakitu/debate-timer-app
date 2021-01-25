@@ -7,6 +7,9 @@ const server = http.Server(app, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
+  },
+  headers: {
+    "Access-Control-Allow-Origin": "*",
   }
 });
 const io = require("socket.io")(server, {
