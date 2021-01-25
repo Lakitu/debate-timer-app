@@ -2,9 +2,9 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const server = http.Server(app, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+
   }
 });
 const io = require("socket.io")(server, {
@@ -13,7 +13,7 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   }
 });
-const port = 3001;
+const port = 0;
 let users = 0;
 
 app.get("/", (req, res) => {
