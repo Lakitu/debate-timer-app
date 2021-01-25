@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 app.get("/favicon.ico", (req, res) => {
-  res.send("");
+  res.sendFile(__dirname+"/timer.png");
 })
 
 app.use(express.static(__dirname + '/pages'))
