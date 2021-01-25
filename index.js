@@ -1,7 +1,12 @@
 const express = require("express");
 const app = express();
 const http = require("http");
-const server = http.Server(app);
+const server = http.Server(app, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
