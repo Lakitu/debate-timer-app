@@ -8,17 +8,23 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   }
 });
-import {api} from "/api"
-const port = 0;
+const port = 3001;
 let users = 0;
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-app.get("/api/:request", (req, res) => {
-  res.send(api(request));
+app.use(express.static(__dirname + '/pages'))
+app.get("/formats", (req, res) => {
+  res.sendFile(__dirname + "/pages/formats.json");
 })
+app.get("/times/:format", (req, res) => {
+  res.sendFile(__dirname + `/pages/times/${req.params.format}.json`)
+})
+app.use((req, res) => {
+  res.status(404).send({url: req.originalURL+' not found'});
+}) // 404 response
 
 io.sockets.on("connection", (socket) => {
   users++;
