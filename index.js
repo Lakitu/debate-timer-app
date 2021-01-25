@@ -1,24 +1,16 @@
 const express = require("express");
 const app = express();
-const cors = require('cors')
-app.use(cors);
+// const cors = require('cors')
+// app.use(cors);
 const http = require("http");
-const server = http.Server(app, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-  }
-});
+const server = http.Server(app);
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
   }
 });
-const port = 0;
+const port = 3001;
 let users = 0;
 
 app.get("/", (req, res) => {
@@ -27,14 +19,15 @@ app.get("/", (req, res) => {
 
 app.use(express.static(__dirname + '/pages'))
 app.get("/formats", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
   res.sendFile(__dirname + "/pages/formats.json");
 })
 app.get("/times/:format", (req, res) => {
   res.sendFile(__dirname + `/pages/times/${req.params.format}.json`)
 })
-app.use((req, res) => {
-  res.status(404).send({url: req.originalURL+' not found'});
-}) // 404 response
+// app.use((req, res) => {
+//   res.status(404).send({url: req.originalURL+' not found'});
+// }) // 404 response
 
 io.sockets.on("connection", (socket) => {
   users++;
@@ -56,4 +49,5 @@ io.sockets.on("connection", (socket) => {
   });
 });
 
-server.listen(process.env.PORT || port);
+// server.listen((process.env.PORT || port));
+server.listen(port);
