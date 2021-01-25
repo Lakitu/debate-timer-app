@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-// const cors = require('cors')
-// app.use(cors);
+const cors = require('cors')
+app.use(cors());
 const http = require("http");
 const server = http.Server(app);
 const io = require("socket.io")(server, {
@@ -10,7 +10,7 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   }
 });
-const port = 0; // works on localhost
+const port = 3001; // works on localhost
 let users = 0;
 
 app.get("/", (req, res) => {
