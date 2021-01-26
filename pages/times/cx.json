@@ -1,6 +1,6 @@
 {
   "times": [
-    ["1AC", 8], ["Cross Ex", 3], ["1NC", 8], ["Cross Ex"], ["2AC", 8], ["Cross", 3], ["2NC", 8], ["Cross", 3],
+    ["1AC", 8], ["Cross Ex", 3], ["1NC", 8], ["Cross Ex", 3], ["2AC", 8], ["Cross Ex", 3], ["2NC", 8], ["Cross Ex", 3],
     ["1NR", 5], ["1AR", 5], ["2NR", 5], ["2AR", 5]
   ]
 }
