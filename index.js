@@ -10,7 +10,7 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   }
 });
-const port = 3001; // works on localhost
+const port = 0; // works on localhost
 let users = 0;
 
 app.get("/", (req, res) => {
