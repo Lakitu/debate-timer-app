@@ -26,6 +26,7 @@ app.get("/formats", (req, res) => {
   res.sendFile(__dirname + "/pages/formats.json");
 })
 app.get("/times/:format", (req, res) => {
+  res.setHeader("Content-Type", "application/json")
   res.sendFile(__dirname + `/pages/times/${req.params.format}.json`)
 })
 // app.use((req, res) => {
