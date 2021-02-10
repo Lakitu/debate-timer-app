@@ -48,8 +48,9 @@ io.sockets.on("connection", (socket) => {
 
   socket.on("create room", () => {
     socket.host = true;
-    socket.roomCode = createRoom();
-    socket.emit("new room code", socket.roomCode);
+    const roomCode = createRoom();
+    socket.emit("new room code", roomCode);
+    socket.join(roomCode);
   }) // create room
 
   socket.on("request end time", (msg) => {
