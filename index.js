@@ -72,7 +72,7 @@ io.sockets.on("connection", (socket) => {
   socket.on("next", (msg) => {
     //noinspection JSUnresolvedVariable
     io.sockets.in(msg.room).emit('next', msg);
-    console.log(msg);
+    // console.log(msg);
   });
 });
 
